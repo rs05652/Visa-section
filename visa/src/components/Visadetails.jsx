@@ -21,8 +21,8 @@ function VisaDetails() {
 
   useEffect(() => {
     const stateData = location.state?.userData;
-    console.log(location.pathname);
-    console.log(location.state);
+    console.log('Location state:', location.state);
+
     if (!stateData) {
       navigate('/UserDetails'); 
     } else {
@@ -37,7 +37,7 @@ function VisaDetails() {
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-md">
         <button
           onClick={() => navigate('/UserDetails')}
-          className="mb-6 text-indigo-600 hover:underline"
+          className="mb-6 text-indigo-600 hover:underline cursor-pointer"
         >
           ← Back to User Details
         </button>
