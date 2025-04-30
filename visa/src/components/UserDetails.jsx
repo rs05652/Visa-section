@@ -92,7 +92,7 @@ function UserDetails() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Applicant Information
+              Applicant Information  
             </motion.h2>
           </div>
 
