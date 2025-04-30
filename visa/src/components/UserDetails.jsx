@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-  FaGlobeAmericas, FaMapMarkerAlt, FaUser, FaVenusMars, FaPhone, FaCity
-} from "react-icons/fa";
+import {FaGlobeAmericas, FaMapMarkerAlt, FaUser, FaVenusMars, FaPhone, FaCity} from "react-icons/fa";
 import { MdEmail, MdLocationCity } from "react-icons/md";
 import { TbMapPinCode } from "react-icons/tb";
 import logo from '../assets/logo.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserData } from './redux/userSlice';
 
 function UserDetails() {
   const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const reduxUserData=useSelector((state)=>state.user.userData);
+  const [userData, setUserDataLocal] = useState(reduxUserData);
+
+  dispatch(setUserData(userData));
+
   const [formErrors, setFormErrors] = useState({});
-  const [userData, setUserData] = useState({
-    firstName: '', lastName: '', email: '', gender: '',
-    phone: '', address: '', city: '', state: '',
-    postalCode: '', country: '',
-  });
+  // const [userData, setUserData] = useState({
+  //   firstName: '', lastName: '', email: '', gender: '',
+  //   phone: '', address: '', city: '', state: '',
+  //   postalCode: '', country: '',
+  // });
 
   const countries = ['Select', 'India', 'United States', 'Australia', 'Canada'];
   const cities = ['Select', 'Mumbai', 'Kolkata', 'Chennai', 'Hyderabad'];
@@ -64,25 +70,24 @@ function UserDetails() {
       <motion.div className="w-full max-w-5xl">
         <motion.form
           onSubmit={handleSubmit}
-          whileHover={{ scale: 1.02, boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)' }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{  boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)' }}
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 100, damping: 25 }}
           className="space-y-8 bg-white p-10 rounded-3xl shadow-2xl"
         >
     
-          <div className="flex items-center justify-center mb-8 space-x-6">
+          <div className="flex items-center justify-center mb-8 space-x-6 ">
             <motion.img
               src={logo}
               alt="Logo"
-              className="w-24 h-24 rounded-full border-4 border-indigo-500 shadow-xl"
+              className="w-24 h-24 rounded-full border-4 border-indigo-500 shadow-xl "
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
             />
             <motion.h2
-              className="text-4xl font-extrabold text-indigo-800 tracking-wide"
+              className="text-4xl font-extrabold text-indigo-800 tracking-wide  "
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -100,9 +105,9 @@ function UserDetails() {
               <input
                 type="text"
                 value={userData.firstName}
-                onChange={(e) => setUserData({ ...userData, firstName: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, firstName: e.target.value })}
                 className={inputClass('firstName')}
-                placeholder="👤 Enter your first name"
+                placeholder=" Enter your first name"
               />
               {formErrors.firstName && <p className="text-red-500 text-xs">{formErrors.firstName}</p>}
             </div>
@@ -114,9 +119,9 @@ function UserDetails() {
               <input
                 type="text"
                 value={userData.lastName}
-                onChange={(e) => setUserData({ ...userData, lastName: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, lastName: e.target.value })}
                 className={inputClass('lastName')}
-                placeholder="👤 Enter your last name"
+                placeholder=" Enter your last name"
               />
               {formErrors.lastName && <p className="text-red-500 text-xs">{formErrors.lastName}</p>}
             </div>
@@ -129,9 +134,9 @@ function UserDetails() {
               <input
                 type="email"
                 value={userData.email}
-                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, email: e.target.value })}
                 className={inputClass('email')}
-                placeholder="✉️ Enter your email"
+                placeholder=" Enter your email"
               />
               {formErrors.email && <p className="text-red-500 text-xs">{formErrors.email}</p>}
             </div>
@@ -143,10 +148,10 @@ function UserDetails() {
               </label>
               <select
                 value={userData.gender}
-                onChange={(e) => setUserData({ ...userData, gender: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, gender: e.target.value })}
                 className={inputClass('gender')}
               >
-                <option value="">⚧️ Select</option>
+                <option value=""> Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -161,9 +166,9 @@ function UserDetails() {
               <input
                 type="text"
                 value={userData.phone}
-                onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, phone: e.target.value })}
                 className={inputClass('phone')}
-                placeholder="📞 Enter your phone"
+                placeholder=" Enter your phone"
               />
               {formErrors.phone && <p className="text-red-500 text-xs">{formErrors.phone}</p>}
             </div>
@@ -175,10 +180,10 @@ function UserDetails() {
               </label>
               <select
                 value={userData.city}
-                onChange={(e) => setUserData({ ...userData, city: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, city: e.target.value })}
                 className={inputClass('city')}
               >
-                {cities.map((c, i) => <option key={i} value={c}>🏙️ {c}</option>)}
+                {cities.map((c, i) => <option key={i} value={c}> {c}</option>)}
               </select>
               {formErrors.city && <p className="text-red-500 text-xs">{formErrors.city}</p>}
             </div>
@@ -190,10 +195,10 @@ function UserDetails() {
               </label>
               <select
                 value={userData.state}
-                onChange={(e) => setUserData({ ...userData, state: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, state: e.target.value })}
                 className={inputClass('state')}
               >
-                {states.map((s, i) => <option key={i} value={s}>🌐 {s}</option>)}
+                {states.map((s, i) => <option key={i} value={s}> {s}</option>)}
               </select>
               {formErrors.state && <p className="text-red-500 text-xs">{formErrors.state}</p>}
             </div>
@@ -205,9 +210,9 @@ function UserDetails() {
               <input
                 type="text"
                 value={userData.postalCode}
-                onChange={(e) => setUserData({ ...userData, postalCode: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, postalCode: e.target.value })}
                 className={inputClass('postalCode')}
-                placeholder="🏷️ Enter postal code"
+                placeholder=" Enter postal code"
               />
               {formErrors.postalCode && <p className="text-red-500 text-xs">{formErrors.postalCode}</p>}
             </div>
@@ -218,10 +223,10 @@ function UserDetails() {
               </label>
               <select
                 value={userData.country}
-                onChange={(e) => setUserData({ ...userData, country: e.target.value })}
+                onChange={(e) => setUserDataLocal({ ...userData, country: e.target.value })}
                 className={inputClass('country')}
               >
-                {countries.map((c, i) => <option key={i} value={c}>🌍{c}</option>)}
+                {countries.map((c, i) => <option key={i} value={c}>{c}</option>)}
               </select>
               {formErrors.country && <p className="text-red-500 text-xs">{formErrors.country}</p>}
             </div>
@@ -229,7 +234,7 @@ function UserDetails() {
 
           <div className="flex justify-center pt-8">
             <motion.button
-              whileHover={{ scale: 1.05, rotate: 5, boxShadow: '0px 0px 15px rgba(99,102,241,0.4)' }}
+              whileHover={{  rotate: 2, boxShadow: '0px 0px 15px rgba(99,102,241,0.4)' }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 300 }}
               type="submit"
