@@ -13,17 +13,33 @@ const initialState = {
     postalCode: '',
     country: '',
   },
+  loading: false,
+  error: null,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserData: (state, action) => {
+    submitUserData: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    submitUserDataSuccess: (state, action) => {
+      state.loading = false;
       state.userData = action.payload;
+    },
+    submitUserDataFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export const { setUserData } = userSlice.actions;
+export const {
+  submitUserData,
+  submitUserDataSuccess,
+  submitUserDataFailure,
+} = userSlice.actions;
+
 export default userSlice.reducer;

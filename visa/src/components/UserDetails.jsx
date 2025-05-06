@@ -6,7 +6,7 @@ import { MdEmail, MdLocationCity } from "react-icons/md";
 import { TbMapPinCode } from "react-icons/tb";
 import logo from '../assets/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserData } from './redux/userSlice';
+import { submitUserData } from './redux/userSlice';
 
 function UserDetails() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function UserDetails() {
   const reduxUserData=useSelector((state)=>state.user.userData);
   const [userData, setUserDataLocal] = useState(reduxUserData);
 
-  dispatch(setUserData(userData));
+  dispatch(submitUserData(userData));
 
   const [formErrors, setFormErrors] = useState({});
   // const [userData, setUserData] = useState({
